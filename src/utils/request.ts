@@ -1,5 +1,5 @@
-import axios, { AxiosInstance } from 'axios'
-
+import axios from 'axios'
+import type { AxiosInstance } from 'axios'
 const service: AxiosInstance = axios.create({
   baseURL: import.meta.env.VUE_APP_BASE_API,
   timeout: 1000 * 60 * 2 //请求超时时间
