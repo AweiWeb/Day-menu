@@ -19,16 +19,25 @@ import router from '@/router'
 </template>
 <style lang="scss" scoped>
 .layout {
+  &-zhu {
+    background-color: #e9e9e9;
+  }
   &-tab {
     position: fixed;
-    bottom: 1vh;
+    bottom: 0vh;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100vw;
+    height: 8vh;
+    background-color: #fdfdfd;
+    border-top-left-radius: 6vw;
+    border-top-right-radius: 6vw;
     div {
       flex: 1;
       text-align: center;
+      font-size: 12px;
+      color: #e3a942;
     }
   }
 }
