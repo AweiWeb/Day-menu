@@ -17,8 +17,6 @@ const toggle = (item: any, index: any) => {
   const item2 = document.querySelector(`.tab${index}`) as HTMLDivElement
 
   if (item1) {
-    console.log(1111)
-
     item1.style.borderTopLeftRadius = '5vw'
   }
   if (item2) {
