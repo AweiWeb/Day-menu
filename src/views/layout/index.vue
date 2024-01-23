@@ -3,36 +3,25 @@ import { ref, onMounted } from 'vue'
 import { tablist } from './tabList'
 import router from '@/router'
 const current = ref(3)
-const toggle = (item: any, index: any) => {
-  current.value = item.id
-  const itemAll = document.querySelectorAll(
-    '.taball'
-  ) as NodeListOf<HTMLDivElement>
-  for (let i = 0; i < itemAll.length; i++) {
-    itemAll[i].style.borderTopLeftRadius = ''
-    itemAll[i].style.borderTopRightRadius = ''
-    // itemAll[i].style.transition = '0s'
+const toggleICon = (id: number, path: string) => {
+  const Icon = document.querySelectorAll(
+    '.spanAll'
+  ) as NodeListOf<HTMLSpanElement>
+  // 根据id来获取当前的点击的icon
+  current.value = id
+  // 拿到所有的span
+  for (let i = 0; i < Icon.length; i++) {
+    Icon[i].classList.remove('active')
   }
-  const item1 = document.querySelector(`.tab${index + 2}`) as HTMLDivElement
-  const item2 = document.querySelector(`.tab${index}`) as HTMLDivElement
-
-  if (item1) {
-    item1.style.borderTopLeftRadius = '5vw'
-  }
-  if (item2) {
-    item2.style.borderTopRightRadius = '5vw'
-  }
-  router.push(item.route)
+  Icon[id - 1].classList.add('active')
+  router.push(path)
 }
+// dom挂载的时候进行默认主页选中高亮
 onMounted(() => {
-  const item1 = document.querySelector(`.tab4`) as HTMLDivElement
-  const item2 = document.querySelector(`.tab2`) as HTMLDivElement
-  if (item1) {
-    item1.style.borderTopLeftRadius = '5vw'
-  }
-  if (item2) {
-    item2.style.borderTopRightRadius = '5vw'
-  }
+  const Icon = document.querySelectorAll(
+    '.spanAll'
+  ) as NodeListOf<HTMLSpanElement>
+  Icon[current.value - 1].classList.add('active')
 })
 </script>
 <template>
@@ -46,13 +35,16 @@ onMounted(() => {
         :key="item.id"
         class="taball"
         :class="`tab${index + 1}`"
-        @click="toggle(item, index)">
-        {{ item.name }}
-        <div
-          class="kong"
-          :style="{ left: `${index + 1} * 25vw` }"
-          v-if="current === item.id"></div>
+        @click="toggleICon(item.id, item.route)">
+        <span :class="`span${index + 1}`" class="spanAll">
+          <img :src="item.icon" alt=""
+        /></span>
       </div>
+      <div
+        class="kong"
+        :style="{
+          transform: 'translateX(' + (current - 1) * 20 + 'vw)'
+        }"></div>
     </div>
   </div>
 </template>
@@ -64,18 +56,19 @@ onMounted(() => {
 
   &-tab {
     position: fixed;
-    bottom: 0vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    bottom: 0;
     width: 100vw;
+    display: flex;
+    background: rgb(255, 255, 255);
+    align-items: center;
+    justify-content: center;
     height: 8vh;
-    transition: 0.5s;
-    // background-color: #fdfdfd;
+
     .tab1,
     .tab2,
     .tab3,
-    .tab4 {
+    .tab4,
+    .tab5 {
       flex: 1;
       height: 100%;
       line-height: 8vh;
@@ -83,20 +76,82 @@ onMounted(() => {
       font-size: 12px;
       color: #e3a942;
       transition: 0.5s;
-      background-color: #fdfdfd;
+      text-align: center;
       transition-delay: 0s;
-    }
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
+      .span1,
+      .span2,
+      .span3,
+      .span4,
+      .span5 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          position: absolute;
+          z-index: 2;
+        }
+      }
+
+      .active {
+        position: absolute;
+        width: 14vw;
+        height: 80%;
+        transition: 0.5s;
+        transform: translateY(-27px) translateX(8px);
+        background: rgb(255, 106, 0);
+        border-radius: 50%;
+        z-index: 2;
+      }
+
+      .active::before {
+        position: absolute;
+        content: '';
+        top: 10px;
+        left: 0;
+        width: 14vw;
+        height: 90%;
+        border-radius: 50%;
+        background: rgb(255, 106, 0);
+        opacity: 1;
+        transition: 0.5s;
+        filter: blur(5px);
+      }
+    }
     .kong {
-      transition: 0.5s;
       position: absolute;
-      background-color: #e9e9e9;
-      overflow: hidden;
-      width: 25%;
-      height: 100%;
-      top: -2vh;
-      border-bottom-left-radius: 5vw;
-      border-bottom-right-radius: 5vw;
+      bottom: 2.7vh;
+      left: 1.5vw;
+      width: 21vw;
+      height: 10vh;
+      border-radius: 50%;
+      z-index: 1;
+      transition: 0.2s;
+      background: rgb(255, 255, 255);
+    }
+    .kong::after {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 19.8vw;
+      width: 30px;
+      height: 30px;
+      box-shadow: -10px 12px #fff;
+      border-radius: 50%;
+    }
+    .kong::before {
+      content: '';
+      position: absolute;
+      top: 5px;
+      left: 0vw;
+      width: 30px;
+      height: 30px;
+      box-shadow: 18px 20px #fff;
+      border-radius: 50%;
     }
   }
 }
