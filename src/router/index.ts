@@ -23,6 +23,10 @@ const router = createRouter({
         {
           path: '/turntable',
           component: () => import('@/views/Turntable/index.vue')
+        },
+        {
+          path: '/shoppingCart',
+          component: () => import('@/views/ShoppingCart/index.vue')
         }
       ]
     },
