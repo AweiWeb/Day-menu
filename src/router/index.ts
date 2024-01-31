@@ -27,6 +27,10 @@ const router = createRouter({
         {
           path: '/shoppingCart',
           component: () => import('@/views/ShoppingCart/index.vue')
+        },
+        {
+          path: '/menu/:id',
+          component: () => import('@/views/MenuList/index.vue')
         }
       ]
     },
