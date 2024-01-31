@@ -51,7 +51,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 .layout {
   &-zhu {
-    background-color: #e9e9e9;
+    background-color: rgb(250, 250, 250);
   }
 
   &-tab {
