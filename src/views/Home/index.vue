@@ -85,6 +85,7 @@ onMounted(() => {
         ref="dinnerDom"
         @click="loadList(3)" />
     </div>
+    <!-- 弹窗 -->
   </div>
 </template>
 <style scoped lang="scss">
