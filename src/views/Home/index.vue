@@ -60,7 +60,7 @@ onMounted(() => {
         </div>
       </div>
       <!-- 消息 -->
-      <div class="message">
+      <div class="message" @click="router.push('/room')">
         <img src="../../assets/icon/message.png" alt="" />
       </div>
     </div>
